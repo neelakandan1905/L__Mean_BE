@@ -3,7 +3,8 @@ const cors = require('cors');
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
-const postRoutes = require('./rotues/posts')
+const postRoutes = require('./rotues/posts');
+const path = require('path');
 
 mongoose.connect('mongodb+srv://neel:Pass_key@meanlearning.vbh9djc.mongodb.net/meanDB?retryWrites=true&w=majority').then(
     () => {
@@ -16,6 +17,8 @@ mongoose.connect('mongodb+srv://neel:Pass_key@meanlearning.vbh9djc.mongodb.net/m
 app.use(cors());
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use("/postImages", express.static(path.join("postImages")));
 
 app.use((req, res, next) => {
     res.setHeader('Access-control-Allow-Orgin', '*');
